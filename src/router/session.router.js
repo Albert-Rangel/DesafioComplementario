@@ -70,25 +70,9 @@ router.get("/githubcallback",
     res.redirect("/products")
   })
 
-  router.post(
-    '/current', publicRoutes,
-    passport.authenticate('login', { failureRedirect: '/failogin' }),
+  router.get(
+    '/current', privateRoutes,
     async (req, res) => {
-      if (!req.user) {
-        res.status(400).send();
-      }
-  
-      req.session.user = {
-        firstname: req.user.firstname,
-        lastname: req.user.lastname,
-        email: req.user.email,
-        age: req.user.age,
-        admin: false,
-        role: req.user.role,
-      };
-
-      req.session.isLogged = true;
-  
       res.send(req.user);
     }
   );
